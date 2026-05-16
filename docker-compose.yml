@@ -1,0 +1,22 @@
+services:
+
+  app:
+    build: ./app
+    container_name: fastapi_app
+
+    volumes:
+      - ./data/images:/data/images
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx_server
+
+    ports:
+      - "8080:80"
+
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./data/images:/data/images
+
+    depends_on:
+      - app
